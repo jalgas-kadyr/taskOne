@@ -14,7 +14,7 @@ class MasterSerializer(serializers.ModelSerializer):
     # status = serializers.BooleanField()
     # frontDocument = serializers.ImageField()
     # backDocument = serializers.ImageField()
-    # specs = serializers.CharField(max_length=100)
+    # specs = serializers.CharField(max_length =100)
     #
     # def create(self, validated_data):
     #     return Master.objects.create(**validated_data)
@@ -37,4 +37,4 @@ class MasterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Master
         fields = ['name', 'surname', 'patronymic', 'phoneNumber', 'documentNumber', 'issuedBy', 'issuedDate', 'IIN',
-                  'status', 'frontDocument', 'backDocument']
+                  'status', 'frontDocument', 'backDocument', 'specs']
