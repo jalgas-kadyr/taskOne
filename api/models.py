@@ -15,8 +15,8 @@ class Master(Model):
     backDocument = ImageField(upload_to='photos')
     specs = CharField(max_length=100)
 
-    # class Meta():
-    #     info = ['name', 'surname', 'patronymic', 'phoneNumber']
+    def __str__(self):
+        return str(self.id)
 
 
 class Receiver(Model):
@@ -34,7 +34,12 @@ class Receiver(Model):
     IBAN = CharField(max_length=100)
     cardNumber = CharField(max_length=20)
 
+    def __str__(self):
+        return str(self.id)
+
 
 class Specialization(Model):
     name = CharField(max_length=50)
 
+    def __str__(self):
+        return str(self.id)

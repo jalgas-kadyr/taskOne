@@ -3,11 +3,12 @@ from api import views
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
-    path('masters/', views.masterList),
-    path('addMaster/', views.addMaster),
-    path('master/<int:id>/', views.masterDetail),
-    path('changeMaster/<int:id>/', views.changeMaster)
-    # path('snippets/<int:pk>/', views.snippet_detail),
+    path('master/', views.master),                              #####
+    path('master/<int:id>', views.masterId),
+    path('receiver/', views.ReceiverList.as_view()),             # Опреций Crud для всех моделек
+    path('receiver/<int:id>', views.ReceiverDetail.as_view()),
+    path('spec/', views.SpecializationList.as_view()),
+    path('spec/<int:id>', views.SpecializationDetail.as_view()), #####
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
