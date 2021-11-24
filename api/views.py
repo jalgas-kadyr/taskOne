@@ -48,6 +48,34 @@ def masterId(request, id, format=None):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes((permissions.AllowAny,))
+def masterSpec(request, id, spec):
+    try:
+        master = Master.objects.get(id=id)
+    except master.DoesNotExist:
+        return Http404
+
+    master.specs = master.specs + '|' + spec
+    serializer = MasterSerializer(master, many=False)
+    master.save()
+    return Response(serializer.data)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes((permissions.AllowAny,))
+def masterReceiver(request, id, receiver):
+    try:
+        master = Master.objects.get(id=id)
+    except master.DoesNotExist:
+        return Http404
+
+    master.receiver = receiver
+    serializer = MasterSerializer(master, many=False)
+    master.save()
+    return Response(serializer.data)
+
+
 class ReceiverList(APIView):
 
     def get(self, request, format=None):

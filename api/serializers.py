@@ -6,7 +6,7 @@ class MasterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Master
         fields = ['name', 'surname', 'patronymic', 'phoneNumber', 'documentNumber', 'issuedBy', 'issuedDate', 'IIN',
-                  'status', 'frontDocument', 'backDocument', 'specs']
+                  'status', 'frontDocument', 'backDocument', 'specs', 'receiver']
 
 
 class ReceiverSerializer(serializers.ModelSerializer):

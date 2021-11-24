@@ -9,6 +9,8 @@ urlpatterns = [
     path('receiver/<int:id>', views.ReceiverDetail.as_view()),
     path('spec/', views.SpecializationList.as_view()),
     path('spec/<int:id>', views.SpecializationDetail.as_view()), #####
+    path('master/<int:id>/<str:spec>', views.masterSpec),
+    path('masterreceiver/<int:id>/<str:receiver>', views.masterReceiver),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

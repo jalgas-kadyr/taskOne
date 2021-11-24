@@ -14,6 +14,7 @@ class Master(Model):
     frontDocument = ImageField(upload_to='photos')
     backDocument = ImageField(upload_to='photos')
     specs = CharField(max_length=100)
+    receiver = CharField(max_length=100)
 
     def __str__(self):
         return str(self.id)
