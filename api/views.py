@@ -1,12 +1,13 @@
 from django.http import HttpResponse, JsonResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
 from api.models import Master, Receiver, Specialization
 from api.serializers import MasterSerializer, ReceiverSerializer, SpecializationSerializer
-from rest_framework import status, permissions
+from rest_framework import status, permissions, generics
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
@@ -160,3 +161,49 @@ class SpecializationDetail(APIView):
         serializer = SpecializationSerializer(spec, many=False)
         spec.delete()
         return Response(serializer.data)
+
+
+class ProductList(generics.ListAPIView):
+    queryset = Master.objects.all()
+    serializer_class = MasterSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['name']
+
+
+class FilterMaster(generics.ListAPIView):
+    serializer_class = MasterSerializer
+    queryset = Master.objects.all()
+
+    def get_queryset(self):
+        search_params = {}
+        keys = list(dict(self.request.query_params).keys())
+        values = list(dict(self.request.query_params).values())
+        for i in range(len(values)):
+            search_params[keys[i]] = values[i][0]
+        return Master.objects.filter(**search_params)
+
+
+class FilterReceiver(generics.ListAPIView):
+    serializer_class = ReceiverSerializer
+    queryset = Receiver.objects.all()
+
+    def get_queryset(self):
+        search_params = {}
+        keys = list(dict(self.request.query_params).keys())
+        values = list(dict(self.request.query_params).values())
+        for i in range(len(values)):
+            search_params[keys[i]] = values[i][0]
+        return Receiver.objects.filter(**search_params)
+
+
+class FilterSpec(generics.ListAPIView):
+    serializer_class = SpecializationSerializer
+    queryset = Specialization.objects.all()
+
+    def get_queryset(self):
+        search_params = {}
+        keys = list(dict(self.request.query_params).keys())
+        values = list(dict(self.request.query_params).values())
+        for i in range(len(values)):
+            search_params[keys[i]] = values[i][0]
+        return Specialization.objects.filter(**search_params)
